@@ -16,7 +16,7 @@ export default class MediaButtonArray extends React.Component {
 
 	// Sends a GET request to the Bluetooth command handler on the RPi
 	_btPlayerCommand(command) {
-		fetch("http://192.168.8.159/web-media-control/media.php?command="+command)
+		fetch("http://"+global.mediaControllerHost+"/bluetooth/"+command)
 		.catch((error) => {
 			ToastAndroid.show("Could not connect to the media player", ToastAndroid.SHORT);
 		});
@@ -37,11 +37,11 @@ export default class MediaButtonArray extends React.Component {
 	}
 
 	_onPressRewind() {
-		this._btPlayerCommand("prevTrack");
+		this._btPlayerCommand("prev");
 	}
 
 	_onPressForward() {
-		this._btPlayerCommand("nextTrack");
+		this._btPlayerCommand("next");
 	}
 
 	render() {
@@ -60,7 +60,7 @@ export default class MediaButtonArray extends React.Component {
 			</View>
 		);
 	}
-	
+
 	_playPauseButtons() {
 		if(this.state.status == "Playing") {
 			return (

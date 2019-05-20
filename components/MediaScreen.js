@@ -16,7 +16,7 @@ export default class MediaScreen extends React.Component {
 
 		// Continously get media state from controller
 		this.interval = setInterval(() => {
-			this._btPlayerCommandAsync("info");
+			this._btPlayerCommandAsync("getMediaInfo");
 		}, 500);
 	}
 
@@ -24,7 +24,7 @@ export default class MediaScreen extends React.Component {
 	_btPlayerCommandAsync(command) {
 		try {
 			componentHandler = this;
-			return fetch("http://192.168.8.159/web-media-control/media.php?command=" + command)
+			return fetch("http://"+global.mediaControllerHost+"/bluetooth/" + command)
 			.then(function(response) {
 				return response.json();
 			})
@@ -75,7 +75,7 @@ export default class MediaScreen extends React.Component {
 				// Check & set local link if it exists first
 				if("Album_Artwork" in mediaObject) {
 					this.setState({
-						albumArtwork: "http://192.168.8.159/web-media-control/"+mediaObject["Album_Artwork"]
+						albumArtwork: "http://"+global.mainControllerHost+"/iTunes-Artwork/"+mediaObject["Album_Artwork"]
 					});
 				} else {
 					this._getAlbumArtwork(mediaObject["Album"], mediaObject["Artist"]);
@@ -86,7 +86,7 @@ export default class MediaScreen extends React.Component {
 				album: mediaObject["Album"],
 				artist: mediaObject["Artist"],
 				title: mediaObject["Title"],
-				status: ("playing" in mediaObject) ? "Playing" : "Paused"
+				status: ("Status" in mediaObject && mediaObject["Status"] == "playing") ? "Playing" : "Paused"
 			});
 		}
 	}
