@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {Platform, StatusBar, StyleSheet, View} from 'react-native';
 import MediaScreen from './components/MediaScreen.js';
+import {mediaHost, mainHost} from './config.json'
 
-global.mediaControllerHost = "media.quinncasey.com:5353"; // Bluetooth A2DP sink running MDroid-Media or MDroid-Core
-global.mainControllerHost = "car.quinncasey.com:80"; // MDroid-Core or another webserver (for album artwork)
+global.mediaControllerHost = mediaHost; // Bluetooth A2DP sink running MDroid-Media or MDroid-Core
+global.mainControllerHost = mainHost; // MDroid-Core or another webserver (for album artwork)
 
 export default class App extends React.Component {
   render() {
