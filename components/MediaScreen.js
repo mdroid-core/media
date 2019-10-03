@@ -75,7 +75,7 @@ export default class MediaScreen extends React.Component {
 				// Check & set local link if it exists first
 				if("Album_Artwork" in mediaObject) {
 					this.setState({
-						albumArtwork: "http://"+global.mainControllerHost+"/iTunes-Artwork/"+mediaObject["Album_Artwork"]
+						albumArtwork: "http://"+global.mainControllerHost+"/extracted_artwork/"+mediaObject["Album_Artwork"]
 					});
 				} else {
 					this._getAlbumArtwork(mediaObject["Album"], mediaObject["Artist"]);
