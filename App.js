@@ -10,7 +10,7 @@ global.mainControllerHost = mainHost; // MDroid-Core or another webserver (for a
 
 export default class App extends React.Component {
   render() {
-    changeNavigationBarColor('#000000', false);
+    //changeNavigationBarColor('#000000', false);
 
     return (
       <View style={styles.container}>
@@ -19,7 +19,6 @@ export default class App extends React.Component {
 					index={0}
           horizontal={false}
           loop={false}
-					style={mainStyles.swiperContainer}
 					showsPagination={false}>
           <MediaScreen />
         </Swiper>
