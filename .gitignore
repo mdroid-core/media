@@ -57,3 +57,5 @@ buck-out/
 
 config.json
 gradle.properties
+android
+.syncthing*
