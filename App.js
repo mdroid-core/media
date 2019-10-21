@@ -15,13 +15,7 @@ export default class App extends React.Component {
     return (
       <View style={styles.container}>
         <StatusBar barStyle="dark-content" backgroundColor="#000000" translucent={true} />
-        <Swiper
-					index={0}
-          horizontal={false}
-          loop={false}
-					showsPagination={false}>
-          <MediaScreen />
-        </Swiper>
+        <MediaScreen />
       </View>
     );
   }

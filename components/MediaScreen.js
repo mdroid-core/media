@@ -7,6 +7,7 @@ import {
   ImageBackground
 } from 'react-native';
 import MediaButtonArray from './MediaButtonArray';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 export default class MediaScreen extends React.Component {
 
@@ -32,6 +33,9 @@ export default class MediaScreen extends React.Component {
 				componentHandler._updateSongInfo(mediaObject);
 			})
 			.catch(function(error) {
+				if(command != "getMediaInfo") {
+					ToastAndroid.show("Could not connect to the media player", ToastAndroid.SHORT);
+				}
 				// do something smart
 			});
 		}
@@ -94,18 +98,40 @@ export default class MediaScreen extends React.Component {
 		}
 	}
 
+	onSwipeLeft(gestureState) {
+		this._btPlayerCommandAsync("prev")
+	}
+	
+	onSwipeRight(gestureState) {
+		this._btPlayerCommandAsync("prev")
+	}
+
   	render() {
+		const config = {
+			velocityThreshold: 0.3,
+			directionalOffsetThreshold: 80
+		};
+
 		return (
-		<View style={[styles.container]}>
-			<ImageBackground imageStyle={{resizeMode: 'cover'}} style={[styles.imageBg]} source={{uri: this.state.albumArtwork}}>
-				<View style={[styles.imageBgMask]}></View>
-			</ImageBackground>
-			<View style={[styles.mainContainer]}>
-				<Text style={styles.mediaTitleText}>{ this.state.title }</Text>
-				<Text style={styles.mediaArtistText}>{ this.state.artist }</Text>
-				<MediaButtonArray status={ this.state.status } />
+		<GestureRecognizer
+            onSwipeLeft={() => this.onSwipeLeft()}
+            onSwipeRight={() => this.onSwipeRight()}
+            config={config}
+            style={{
+              flex: 1,
+              backgroundColor: this.state.backgroundColor
+            }}>
+			<View style={[styles.container]}>
+				<ImageBackground imageStyle={{resizeMode: 'cover'}} style={[styles.imageBg]} source={{uri: this.state.albumArtwork}}>
+					<View style={[styles.imageBgMask]}></View>
+				</ImageBackground>
+				<View style={[styles.mainContainer]}>
+					<Text style={styles.mediaTitleText}>{ this.state.title }</Text>
+					<Text style={styles.mediaArtistText}>{ this.state.artist }</Text>
+					<MediaButtonArray status={ this.state.status } />
+				</View>
 			</View>
-		</View>
+		</GestureRecognizer>
 		);
   	}
 }
