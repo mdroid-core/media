@@ -25,15 +25,16 @@ export default class MediaScreen extends React.Component {
 	_btPlayerCommandAsync(command) {
 		try {
 			componentHandler = this;
+			console.log("http://"+global.mediaControllerHost+"/bluetooth/" + command);
 			return fetch("http://"+global.mediaControllerHost+"/bluetooth/" + command)
 			.then(function(response) {
 				return response.json();
 			})
 			.then(function(mediaObject) {
-				componentHandler._updateSongInfo(mediaObject);
+				componentHandler._updateSongInfo(mediaObject["output"]);
 			})
 			.catch(function(error) {
-				console.log(error)
+				console.log(error);
 				if(command != "getMediaInfo") {
 					ToastAndroid.show("Could not connect to the media player", ToastAndroid.SHORT);
 				}
@@ -82,7 +83,7 @@ export default class MediaScreen extends React.Component {
 				// Check & set local link if it exists first
 				if("Album_Artwork" in mediaObject) {
 					this.setState({
-						albumArtwork: "http://"+global.mainControllerHost+"/extracted_artwork/"+mediaObject["Album_Artwork"]
+						albumArtwork: "http://"+global.mainControllerHost+"/"+mediaObject["Album_Artwork"]
 					});
 				} else {
 					this._getAlbumArtwork(mediaObject["Album"], mediaObject["Artist"]);
