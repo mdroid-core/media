@@ -33,10 +33,10 @@ export default class MediaScreen extends React.Component {
 				componentHandler._updateSongInfo(mediaObject);
 			})
 			.catch(function(error) {
+				console.log(error)
 				if(command != "getMediaInfo") {
 					ToastAndroid.show("Could not connect to the media player", ToastAndroid.SHORT);
 				}
-				// do something smart
 			});
 		}
 		catch (error) {
