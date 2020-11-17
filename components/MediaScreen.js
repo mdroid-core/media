@@ -31,6 +31,7 @@ export default class MediaScreen extends React.Component {
 				return response.json();
 			})
 			.then(function(mediaObject) {
+				console.log(mediaObject);
 				componentHandler._updateSongInfo(mediaObject["output"]);
 			})
 			.catch(function(error) {

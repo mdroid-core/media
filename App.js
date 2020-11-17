@@ -6,7 +6,6 @@ import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import Swiper from 'react-native-swiper';
 
 global.mediaControllerHost = mediaHost; // Bluetooth A2DP sink running MDroid-Media
-global.mainControllerHost = mainHost; // MDroid-Core or another webserver (for album artwork)
 
 export default class App extends React.Component {
   render() {
