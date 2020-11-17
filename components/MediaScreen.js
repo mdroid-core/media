@@ -32,7 +32,7 @@ export default class MediaScreen extends React.Component {
 			})
 			.then(function(mediaObject) {
 				console.log(mediaObject);
-				componentHandler._updateSongInfo(mediaObject["output"]);
+				componentHandler._updateSongInfo(mediaObject);
 			})
 			.catch(function(error) {
 				console.log(error);
@@ -82,9 +82,9 @@ export default class MediaScreen extends React.Component {
 			if(mediaObject["Artist"] !== this.state.artist || mediaObject["Album"] !== this.state.album) {
 
 				// Check & set local link if it exists first
-				if("Album_Artwork" in mediaObject) {
+				if("ArtworkPath" in mediaObject) {
 					this.setState({
-						albumArtwork: "http://"+global.mainControllerHost+"/"+mediaObject["Album_Artwork"]
+						albumArtwork: "http://"+global.mediaControllerHost+"/artwork/"+mediaObject["ArtworkPath"]
 					});
 				} else {
 					this._getAlbumArtwork(mediaObject["Album"], mediaObject["Artist"]);
@@ -95,7 +95,7 @@ export default class MediaScreen extends React.Component {
 				album: mediaObject["Album"],
 				artist: mediaObject["Artist"],
 				title: mediaObject["Title"],
-				status: ("Status" in mediaObject && mediaObject["Status"] == "playing") ? "Playing" : "Paused"
+				status: ("IsPlaying" in mediaObject && mediaObject["IsPlaying"]) ? "Playing" : "Paused"
 			});
 		}
 	}
@@ -105,7 +105,7 @@ export default class MediaScreen extends React.Component {
 	}
 	
 	onSwipeRight(gestureState) {
-		this._btPlayerCommandAsync("prev")
+		this._btPlayerCommandAsync("next")
 	}
 
   	render() {
